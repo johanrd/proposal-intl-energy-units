@@ -50,7 +50,7 @@ new Intl.NumberFormat('en-US', { style: 'unit', unit: 'kilowatt-hour-per-mile', 
 
 ## Proposed Solution
 
-Add four sanctioned single unit identifiers to ECMA-402 §6.6.2 (IsSanctionedSingleUnitIdentifier), Table 2:
+Add four sanctioned single unit identifiers to [ECMA-402 §6.6.2 (IsSanctionedSingleUnitIdentifier), Table 2](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers):
 
 **Energy Units:**
 - `kilowatt-hour` - Primary unit for electrical energy consumption (utility bills, EV charging, home energy)

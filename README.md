@@ -91,7 +91,7 @@ See: https://github.com/unicode-org/cldr/blob/main/common/validity/unit.xml
 ## Technical Considerations
 
 - **No breaking changes**: Purely additive
-- **Minimal payload impact**: Data already exists in CLDR and is typically shipped with browser i18n data
+- **Minimal payload impact**: Data already exists in CLDR, four units represent a minimal addition.
 - **Consistent with existing patterns**: Follows same conventions as `kilogram`/`kilometer`, `fluid-ounce`
 - **Spec updates**: §6.6.2 IsSanctionedSingleUnitIdentifier (Table 2) and AvailableCanonicalUnits() return set
 

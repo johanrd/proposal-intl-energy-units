@@ -97,7 +97,7 @@ See: https://github.com/unicode-org/cldr/blob/main/common/validity/unit.xml
 
 ## Community Support
 
-Issue #739 has received 15 👍 reactions. There is also a thread on [Discourse](https://es.discourse.group/t/addition-of-power-energy-units-to-intl-numberformat/1702).
+[Issue #739](https://github.com/tc39/ecma402/issues/739) has received 15 👍 reactions. There is also a thread on [Discourse](https://es.discourse.group/t/addition-of-power-energy-units-to-intl-numberformat/1702).
 
 ## Future Considerations
 

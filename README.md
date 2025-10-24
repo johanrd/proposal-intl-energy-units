@@ -61,28 +61,16 @@ new Intl.NumberFormat('en-US', { style: 'unit', unit: 'kilowatt-hour' }).format(
 
 Add four sanctioned single unit identifiers to [ECMA-402 §6.6.2 (IsSanctionedSingleUnitIdentifier), Table 2](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers):
 
-**Energy Units:**
-- `kilowatt-hour` - Primary unit for electrical energy consumption (utility bills, EV charging, home energy)
-- `watt-hour` - Smaller energy quantities (battery capacity, device consumption)
-
-**Power Units:**
-- `watt` - SI derived unit for power (appliance ratings, device specifications)
-- `kilowatt` - Common power ratings (EV charging rate, solar, HVAC systems)
+| Single Unit Identifier |  |
+|:------------------------|:-------------|
+| kilowatt-hour          | Primary unit for electrical energy consumption (utility bills, EV charging, home energy) |
+| watt-hour              | Smaller energy quantities (battery capacity, device consumption) |
+| kilowatt               | Common power ratings (EV charging rate, solar, HVAC systems) |
+| watt                   | SI derived unit for power (appliance ratings, device specifications) |
 
 These four units cover the vast majority of consumer-facing energy applications. ECMA-402 draws from CLDR; these identifiers are already defined and localized.
 
-## Specification Changes
-
-**§6.6.2 IsSanctionedSingleUnitIdentifier, Table 2** — append:
-
-| Single Unit Identifier |
-|------------------------|
-| kilowatt               |
-| kilowatt-hour          |
-| watt                   |
-| watt-hour              |
-
-**AvailableCanonicalUnits()** — must include the four new identifiers in its return set.
+**AvailableCanonicalUnits()** must include the four new identifiers in its return set.
 
 ## Prior Art
 

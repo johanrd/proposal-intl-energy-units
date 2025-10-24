@@ -1,4 +1,4 @@
-# Proposal: Add Energy & Power Units (kWh, Wh, kW, W) to ECMA-402
+# Proposal: Add Energy & Power Units (W, kW, kWh) to ECMA-402
 
 ## Status
 
@@ -59,18 +59,40 @@ new Intl.NumberFormat('en-US', { style: 'unit', unit: 'kilowatt-hour' }).format(
 
 ## Proposed Solution
 
-Add four sanctioned single unit identifiers to [ECMA-402 §6.6.2 (IsSanctionedSingleUnitIdentifier), Table 2](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers):
+Add three sanctioned single unit identifiers to [ECMA-402 §6.6.2 (IsSanctionedSingleUnitIdentifier), Table 2](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers):
 
 | Single Unit Identifier |  |
 |:------------------------|:-------------|
 | kilowatt-hour          | Primary unit for electrical energy consumption (utility bills, EV charging, home energy) |
-| watt-hour              | SI-derived calculations and smaller energy quantities (battery capacity, device consumption) |
 | kilowatt               | Common power ratings (EV charging rate, solar, HVAC systems) |
 | watt                   | SI derived unit for power (appliance ratings, device specifications) |
 
-These four units cover the vast majority of consumer-facing energy applications. ECMA-402 draws from CLDR; these identifiers are already defined and localized.
+These three units cover the vast majority of consumer-facing energy applications. ECMA-402 draws from CLDR; these identifiers are already defined and localized.
 
-**AvailableCanonicalUnits()** must include the four new identifiers in its return set.
+**AvailableCanonicalUnits()** must include the three new identifiers in its return set.
+
+## Why Not Watt-Hour?
+
+While `watt-hour` would be useful for smaller energy quantities (battery capacity, device consumption), it is **not defined as an explicit unit in CLDR** ([unit.xml](https://github.com/unicode-org/cldr/blob/main/common/validity/unit.xml)).
+
+### Current State
+
+CLDR can construct `watt-hour` as a compound unit (`power-watt` + `duration-hour`), but this produces **suboptimal formatting** compared to the explicit `kilowatt-hour`:
+
+| Unit | CLDR Status | SHORT format (en) |
+|------|-------------|-------------------|
+| kilowatt-hour | ✅ Explicit definition | `12.345 kWh` |
+| watt-hour | ⚠️ Constructed from components | `12.345 W⋅hr` |
+
+The constructed format uses a separator (`⋅`) and `hr` instead of the more natural `Wh`. Other locales have similar issues (German: `W⋅Std.` instead of `Wh`).
+
+### CLDR Discussion
+
+[CLDR-11454](https://unicode-org.atlassian.net/browse/CLDR-11454) proposed adding `watt-hour` as an explicit unit but decided it "can be done with compound units" (referring to the construction mechanism). However, [CLDR-17881](https://unicode-org.atlassian.net/browse/CLDR-17881) recognizes that commonly-used compound units should have explicit definitions for better formatting.
+
+### Path Forward
+
+This proposal focuses on the three units with production-quality CLDR support. `watt-hour` and `megawatt-hour` could be added to ECMA-402 once CLDR defines them explicitly with proper formatting.
 
 ## Prior Art
 
@@ -88,7 +110,7 @@ See: https://github.com/unicode-org/cldr/blob/main/common/validity/unit.xml
 ## Technical Considerations
 
 - **No breaking changes**: Purely additive
-- **Minimal payload impact**: Data already exists in CLDR, four units represent a minimal addition.
+- **Minimal payload impact**: Data already exists in CLDR, three units represent a minimal addition.
 - **Consistent with existing patterns**: Follows same conventions as `kilogram`/`kilometer`, `fluid-ounce`
 - **Userland complexity**: Developers currently rely on unit conversion libraries like [convert-units](https://www.npmjs.com/package/convert-units) (~150K weekly npm downloads for convert-units alone, used by 269+ packages)
 - **Spec updates**: §6.6.2 IsSanctionedSingleUnitIdentifier (Table 2) and AvailableCanonicalUnits() return set
@@ -110,35 +132,34 @@ Energy units have significantly broader utility than existing sanctioned units l
 
 Additional energy and power units exist in CLDR but are excluded from this proposal to maintain focus. They could be considered in future proposals if demand emerges:
 
-**Medium Priority:**
+**Medium Priority (defined in CLDR):**
 - `megawatt` - Industrial and power generation facilities
-- `megawatt-hour` - Utility-scale energy measurement
 - `gigawatt` - Large-scale power infrastructure
+- `milliwatt` - Low-power electronics
+
+**Not Currently in CLDR (would require upstream CLDR work first):**
+- `watt-hour` - Smaller energy quantities (battery capacity, device consumption)
+- `megawatt-hour` - Utility-scale energy measurement
 
 **Lower Priority:**
-- `milliwatt` - Low-power electronics
 - `joule`, `kilojoule` - Scientific applications (separate domain)
-- `british-thermal-unit` - HVAC 
+- `british-thermal-unit` - HVAC
 - `therm-us` - US natural gas billing
 - `horsepower` - Automotive (niche web usage)
 - `calorie`, `kilocalorie`, `foodcalorie` - Nutrition (separate domain)
 
 ## FAQ
 
-### Why these four units?
+### Why these three units?
 
-These cover the overwhelming majority of consumer-facing energy applications in web development. Starting focused allows faster adoption.
+These cover the overwhelming majority of consumer-facing energy applications in web development. Starting focused allows faster adoption, and all three units are already defined with production-quality formatting in CLDR.
 
-### Why kilowatt-hour AND watt-hour?
+### What about smaller units like watt-hour?
 
-Both are standard in different contexts:
-- `watt-hour`: Small devices ("500 Wh battery")
-- `kilowatt-hour`: Consumption ("42 kWh charge", utility bills)
-
-Additionally, having `watt-hour` as a sanctioned single unit allows custom formatters to scale to other prefixes (e.g., MWh) while preserving locale-correct formatting.
+See the [Why Not Watt-Hour?](#why-not-watt-hour) section above. While useful, `watt-hour` is not currently defined as an explicit unit in CLDR and produces suboptimal formatting when constructed as a compound unit.
 
 ### Won't this increase bundle sizes?
-These units are defined in CLDR with localization across all supported locales. Browsers may need to ship additional translation strings for the four units. However, the per-unit data is small (unit names, abbreviations, and grammatical forms), and four units represent a minimal addition.
+These units are defined in CLDR with localization across all supported locales. Browsers may need to ship additional translation strings for the three units. However, the per-unit data is small (unit names, abbreviations, and grammatical forms), and three units represent a minimal addition.
 
 ## References
 

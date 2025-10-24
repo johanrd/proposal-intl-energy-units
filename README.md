@@ -131,8 +131,7 @@ Both are standard in different contexts:
 Additionally, having `watt-hour` as a sanctioned single unit allows custom formatters to scale to other prefixes (e.g., MWh) while preserving locale-correct formatting.
 
 ### Won't this increase bundle sizes?
-
-The localization data for these units already exists in CLDR and is typically shipped with browser i18n data. Adding four identifiers mainly enables access to existing data; any additional strings are minimal. 
+These units are defined in CLDR with localization across all supported locales. Browsers may need to ship additional translation strings for the four units. However, the per-unit data is small (unit names, abbreviations, and grammatical forms), and four units represent a minimal addition.
 
 ## References
 

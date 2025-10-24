@@ -20,32 +20,41 @@ Currently, developers must manually format these units, losing locale-specific c
 
 ## Use Cases
 
+#### Narrow width, US locale:
 ```javascript
-// Today (before this proposal), these throw RangeError:
-new Intl.NumberFormat('en-US', { style: 'unit', unit: 'kilowatt-hour' }).format(42.5)
-// RangeError: Invalid unit argument for option unit: kilowatt-hour
-
-// After this proposal - showing width + locale differences:
-
-// Narrow width, US locale
 new Intl.NumberFormat('en-US', { style: 'unit', unit: 'kilowatt-hour', unitDisplay: 'narrow' }).format(1234.5)
 // "1,234.5 kWh"
+```
 
-// Short width, French locale (note spacing + comma decimal)
+
+#### Short width, French locale
+```javascript
 new Intl.NumberFormat('fr-FR', { style: 'unit', unit: 'kilowatt-hour', unitDisplay: 'short' }).format(1234.5)
 // "1 234,5 kWh"
+```
 
-// Long width, German locale
+#### Long width, German locale:
+```javascript
 new Intl.NumberFormat('de-DE', { style: 'unit', unit: 'watt', unitDisplay: 'long' }).format(1200)
 // "1.200 Watt"
+```
 
-// Power ratings across locales
+#### Power ratings across locales:
+```javascript
 new Intl.NumberFormat('en-US', { style: 'unit', unit: 'kilowatt' }).format(5.2)  // "5.2 kW"
 new Intl.NumberFormat('fr-FR', { style: 'unit', unit: 'kilowatt' }).format(5.2)  // "5,2 kW"
+```
 
-// Compound units (once base units are sanctioned)
+#### Compound units (once base units are sanctioned):
+```javascript
 new Intl.NumberFormat('en-US', { style: 'unit', unit: 'kilowatt-hour-per-mile', unitDisplay: 'narrow' }).format(0.29)
 // "0.29 kWh/mi"
+```
+
+#### Today (before this proposal), these throw RangeError:
+```javascript
+new Intl.NumberFormat('en-US', { style: 'unit', unit: 'kilowatt-hour' }).format(42.5)
+// RangeError: Invalid unit argument for option unit: kilowatt-hour
 ```
 
 ## Proposed Solution

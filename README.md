@@ -1,16 +1,12 @@
 # Proposal: Add Energy & Power Units (kWh, Wh, kW, W) to ECMA-402
 
+## Status
+
 **Stage**: 0 (seeking champion)
 
 **Champion**: TBD
 
 **Author**: Johan Røed (@johanrd)
-
-## Status
-
-This proposal adds essential energy and power measurement units to the sanctioned unit identifiers in ECMA-402.
-
-**Related issue**: https://github.com/tc39/ecma402/issues/739
 
 ## Motivation
 
@@ -19,6 +15,8 @@ Electric vehicles and construction equipment have already started to report ener
 It would be helpful if ECMAScript could make developing these web apps a tiny bit easier by providing kilowatt-hour as a supported unit in `Intl.NumberFormat`.
 
 Currently, developers must manually format these units, losing locale-specific conventions like decimal separators, spacing, and pluralization, or include additional dependencies.
+
+**Related issue**: https://github.com/tc39/ecma402/issues/739
 
 ## Use Cases
 

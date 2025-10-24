@@ -63,9 +63,10 @@ Add three sanctioned single unit identifiers to [ECMA-402 §6.6.2 (IsSanctionedS
 
 | Single Unit Identifier |  |
 |:------------------------|:-------------|
-| kilowatt-hour          | Primary unit for electrical energy consumption (utility bills, EV charging, home energy) |
-| kilowatt               | Common power ratings (EV charging rate, solar, HVAC systems) |
 | watt                   | SI derived unit for power (appliance ratings, device specifications) |
+| kilowatt               | Common power ratings (EV charging rate, solar, HVAC systems) |
+| kilowatt-hour          | Primary unit for electrical energy consumption (utility bills, EV charging, home energy) |
+
 
 These three units cover the vast majority of consumer-facing energy applications. ECMA-402 draws from CLDR; these identifiers are already defined and localized.
 
@@ -73,7 +74,7 @@ These three units cover the vast majority of consumer-facing energy applications
 
 ## Why Not Watt-Hour?
 
-While `watt-hour` would be useful for smaller energy quantities (battery capacity, device consumption), it is **not defined as an explicit unit in CLDR** ([unit.xml](https://github.com/unicode-org/cldr/blob/main/common/validity/unit.xml)).
+While `watt-hour` would be useful for smaller energy quantities (battery capacity, device consumption) and to add custom formatters to scale to other prefixes (e.g., MWh), it is **not defined as an explicit unit in CLDR** ([unit.xml](https://github.com/unicode-org/cldr/blob/main/common/validity/unit.xml)).
 
 ### Current State
 

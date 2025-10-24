@@ -90,15 +90,10 @@ See: https://github.com/unicode-org/cldr/blob/main/common/validity/unit.xml
 - **No breaking changes**: Purely additive
 - **Minimal payload impact**: Data already exists in CLDR, four units represent a minimal addition.
 - **Consistent with existing patterns**: Follows same conventions as `kilogram`/`kilometer`, `fluid-ounce`
+- **Userland complexity**: Developers currently rely on unit conversion libraries like [convert-units](https://www.npmjs.com/package/convert-units) (~150K weekly npm downloads for convert-units alone, used by 269+ packages)
 - **Spec updates**: §6.6.2 IsSanctionedSingleUnitIdentifier (Table 2) and AvailableCanonicalUnits() return set
 
-## Broad Appeal
-
-### Userland Complexity
-Developers currently rely on unit conversion libraries to handle energy formatting:
-- **convert-units**: ~150K weekly downloads, used by 269+ packages
-
-### High-Profile Applications & Market Growth
+## Adoption
 - **EU Building Energy Management**: Mandated by EPBD directive<sup>[[1]](https://energy.ec.europa.eu/topics/energy-efficiency/energy-performance-buildings/energy-performance-buildings-directive_en)</sup> (zero-emission standard for new buildings, 16% of existing buildings to be renovated by 2030)
 - **Electric Vehicles**: Projected to reach 40M annual sales by 2030<sup>[[2]](https://www.iea.org/reports/global-ev-outlook-2024/executive-summary)</sup> (charging networks: ChargePoint 1M+ sessions/month<sup>[[3]](https://www.greencarreports.com/news/1115324_evgo-chargepoint-annual-reports-show-growth-in-electric-car-charging)</sup>, EVgo 1.4M+ drivers<sup>[[4]](https://apps.apple.com/us/app/evgo-fast-ev-charging/id1281660968)</sup>)
 - **Smart Home Market**: $101B in 2024<sup>[[5]](https://www.skyquestt.com/report/smart-home-market)</sup>, projected to reach $226B by 2032 (Home Assistant: 2M+ installations<sup>[[6]](https://www.home-assistant.io/blog/2025/04/16/state-of-the-open-home-recap/)</sup>)

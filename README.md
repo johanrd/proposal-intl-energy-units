@@ -61,11 +61,23 @@ new Intl.NumberFormat('en-US', { style: 'unit', unit: 'kilowatt-hour' }).format(
 
 Add three sanctioned single unit identifiers to [ECMA-402 §6.6.2 (IsSanctionedSingleUnitIdentifier), Table 2](https://tc39.es/ecma402/#table-sanctioned-single-unit-identifiers):
 
-| Single Unit Identifier |  |
-|:------------------------|:-------------|
-| watt                   | SI derived unit for power (appliance ratings, device specifications) |
-| kilowatt               | Common power ratings (EV charging rate, solar, HVAC systems) |
-| kilowatt-hour          | Primary unit for electrical energy consumption (utility bills, EV charging, home energy) |
+<table>
+  <tr>
+   <th colspan="2" align="left">Single Unit Identifier</th>
+  </tr>
+  <tr>
+   <td>watt</td>
+   <td>SI derived unit for power (appliance ratings, device specifications)</td>
+  </tr>
+  <tr>
+   <td>kilowatt</td>
+   <td>Common power ratings (EV charging rate, solar, HVAC systems)</td>
+  </tr>
+  <tr>
+   <td>kilowatt-hour</td>
+   <td>Primary unit for electrical energy consumption (utility bills, EV charging, home energy)</td>
+  </tr>
+</table>
 
 
 These three units cover the vast majority of consumer-facing energy applications. ECMA-402 draws from CLDR; these identifiers are already defined and localized.

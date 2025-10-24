@@ -64,7 +64,7 @@ Add four sanctioned single unit identifiers to [ECMA-402 §6.6.2 (IsSanctionedSi
 | Single Unit Identifier |  |
 |:------------------------|:-------------|
 | kilowatt-hour          | Primary unit for electrical energy consumption (utility bills, EV charging, home energy) |
-| watt-hour              | Smaller energy quantities (battery capacity, device consumption, SI-derived calculations) |
+| watt-hour              | SI-derived calculations, Smaller energy quantities (battery capacity, device consumption) |
 | kilowatt               | Common power ratings (EV charging rate, solar, HVAC systems) |
 | watt                   | SI derived unit for power (appliance ratings, device specifications) |
 

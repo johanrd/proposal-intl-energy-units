@@ -10,9 +10,9 @@
 
 ## Motivation
 
-Electric vehicles and construction equipment have already started to report energy consumption as kilowatt-hours in their telemetry APIs, not to mention the many applications in the building and power industries. An increasing amount of web applications are being developed as tools to help the current electrification of society.
+Electric vehicles and construction equipment have already started to report energy consumption in their telemetry APIs, not to mention the many applications in the building and power industries. An increasing amount of web applications are being developed as tools to help the current electrification of society.
 
-It would be helpful if ECMAScript could make developing these applications a tiny bit easier by providing kilowatt-hour as a supported unit in `Intl.NumberFormat`.
+It would be helpful if ECMAScript could make developing these applications a tiny bit easier by providing `watt`, `kilowatt` and `kilowatt-hour` as a supported units in `Intl.NumberFormat`.
 
 Currently, developers must manually format these units.
 

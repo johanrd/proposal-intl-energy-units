@@ -110,9 +110,9 @@ Additional energy and power units exist in CLDR but are excluded from this propo
 
 **Lower Priority:**
 - `milliwatt` - Low-power electronics
-- `joule`, `kilojoule` - Scientific applications
-- `british-thermal-unit` - HVAC (declining usage)
-- `therm-us` - US natural gas billing only
+- `joule`, `kilojoule` - Scientific applications (separate domain)
+- `british-thermal-unit` - HVAC 
+- `therm-us` - US natural gas billing
 - `horsepower` - Automotive (niche web usage)
 - `calorie`, `kilocalorie`, `foodcalorie` - Nutrition (separate domain)
 

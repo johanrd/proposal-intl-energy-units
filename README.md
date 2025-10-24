@@ -4,6 +4,8 @@
 
 **Champion**: TBD
 
+**Author**: Johan Røed (@johanrd)
+
 ## Status
 
 This proposal adds essential energy and power measurement units to the sanctioned unit identifiers in ECMA-402.
@@ -12,7 +14,7 @@ This proposal adds essential energy and power measurement units to the sanctione
 
 ## Motivation
 
-Electric vehicles, smart home devices, solar panels, battery systems, and construction and power industries report energy consumption as kilowatt-hours in their telemetry APIs. An increasing amount of web applications are being developed as tools to help the current electrification of society.
+Electric vehicles and construction equipment have already started to report energy consumption as kilowatt-hours in their telemetry APIs, not to mention the many applications in the building and power industries. An increasing amount of web applications are being developed as tools to help the current electrification of society.
 
 It would be helpful if ECMAScript could make developing these web apps a tiny bit easier by providing kilowatt-hour as a supported unit in `Intl.NumberFormat`.
 

@@ -1,6 +1,6 @@
-# Proposal: Add Energy and Power Units to ECMA-402
+# Proposal: Add Energy & Power Units (kWh, Wh, kW, W) to ECMA-402
 
-**Stage**: 0
+**Stage**: 0 (seeking champion)
 
 **Champion**: TBD
 
@@ -12,58 +12,59 @@ This proposal adds essential energy and power measurement units to the sanctione
 
 ## Motivation
 
-Electric vehicles, smart home devices, solar panels, and battery systems report energy consumption as kilowatt-hours in their telemetry APIs, not to mention the many applications in the construction and power industries. An increasing amount of web applications are going to be developed as tools to help the current electrification of society.
+Electric vehicles, smart home devices, solar panels, battery systems, and construction and power industries report energy consumption as kilowatt-hours in their telemetry APIs. An increasing amount of web applications are being developed as tools to help the current electrification of society.
 
-It would be helpful if ecmascript could make developing these web apps a tiny bit easier by providing kilowatt-hour as a supported unit in Intl.NumberFormat.
+It would be helpful if ECMAScript could make developing these web apps a tiny bit easier by providing kilowatt-hour as a supported unit in `Intl.NumberFormat`.
 
-Currently, developers must manually format these units, losing locale-specific conventions like decimal separators and spacing.
+Currently, developers must manually format these units, losing locale-specific conventions like decimal separators, spacing, and pluralization, or include additional dependencies.
 
 ## Use Cases
 
-### Electric Vehicle Charging
 ```javascript
-new Intl.NumberFormat('en-US', {
-  style: 'unit',
-  unit: 'kilowatt-hour'
-}).format(42.5);
-// → "42.5 kWh"
-```
+// Today (before this proposal), these throw RangeError:
+new Intl.NumberFormat('en-US', { style: 'unit', unit: 'kilowatt-hour' }).format(42.5)
+// RangeError: Invalid unit argument for option unit: kilowatt-hour
 
-### Solar Panel Output
-```javascript
-new Intl.NumberFormat('en-US', {
-  style: 'unit',
-  unit: 'kilowatt'
-}).format(5.2);
-// → "5.2 kW"
-```
+// After this proposal - showing width + locale differences:
 
-### Appliance Power Ratings
-```javascript
-new Intl.NumberFormat('fr-FR', {
-  style: 'unit',
-  unit: 'watt'
-}).format(1200);
-// → "1 200 W"
+// Narrow width, US locale
+new Intl.NumberFormat('en-US', { style: 'unit', unit: 'kilowatt-hour', unitDisplay: 'narrow' }).format(1234.5)
+// "1,234.5 kWh"
+
+// Short width, French locale (note spacing + comma decimal)
+new Intl.NumberFormat('fr-FR', { style: 'unit', unit: 'kilowatt-hour', unitDisplay: 'short' }).format(1234.5)
+// "1 234,5 kWh"
+
+// Long width, German locale
+new Intl.NumberFormat('de-DE', { style: 'unit', unit: 'watt', unitDisplay: 'long' }).format(1200)
+// "1.200 Watt"
+
+// Power ratings across locales
+new Intl.NumberFormat('en-US', { style: 'unit', unit: 'kilowatt' }).format(5.2)  // "5.2 kW"
+new Intl.NumberFormat('fr-FR', { style: 'unit', unit: 'kilowatt' }).format(5.2)  // "5,2 kW"
+
+// Compound units (once base units are sanctioned)
+new Intl.NumberFormat('en-US', { style: 'unit', unit: 'kilowatt-hour-per-mile', unitDisplay: 'narrow' }).format(0.29)
+// "0.29 kWh/mi"
 ```
 
 ## Proposed Solution
 
-Add four units to Table 2 in ECMA-402 section 6.6.2:
+Add four sanctioned single unit identifiers to ECMA-402 §6.6.2 (IsSanctionedSingleUnitIdentifier), Table 2:
 
 **Energy Units:**
 - `kilowatt-hour` - Primary unit for electrical energy consumption (utility bills, EV charging, home energy)
 - `watt-hour` - Smaller energy quantities (battery capacity, device consumption)
 
 **Power Units:**
-- `watt` - SI base unit for power (appliance ratings, device specifications)
-- `kilowatt` - Common power ratings (EV charging rate, solar panels, HVAC systems)
+- `watt` - SI derived unit for power (appliance ratings, device specifications)
+- `kilowatt` - Common power ratings (EV charging rate, solar, HVAC systems)
 
-These four units cover the vast majority of consumer-facing energy applications. All units already exist in CLDR with complete localization data.
+These four units cover the vast majority of consumer-facing energy applications. ECMA-402 draws from CLDR; these identifiers are already defined and localized.
 
 ## Specification Changes
 
-Add to **Table 2: Single units sanctioned for use in ECMAScript** in section 6.6.2:
+**§6.6.2 IsSanctionedSingleUnitIdentifier, Table 2** — append:
 
 | Single Unit Identifier |
 |------------------------|
@@ -71,6 +72,8 @@ Add to **Table 2: Single units sanctioned for use in ECMAScript** in section 6.6
 | kilowatt-hour          |
 | watt                   |
 | watt-hour              |
+
+**AvailableCanonicalUnits()** — must include the four new identifiers in its return set.
 
 ## Prior Art
 
@@ -80,20 +83,21 @@ All proposed units are defined in Unicode CLDR with complete localization across
 See: https://github.com/unicode-org/cldr/blob/main/common/validity/unit.xml
 
 ### Real-World Usage
-- **r[FMS vehicle data specification](https://www.fms-standard.com/Truck/down_load/Technical_Specification_rFMS_vehicle_data_V4.0.0_17.09.2021.pdf)**: Returns energy in watt hours
+- **[rFMS vehicle data specification](https://www.fms-standard.com/Truck/down_load/Technical_Specification_rFMS_vehicle_data_V4.0.0_17.09.2021.pdf)**: Returns energy in watt hours
 - **[Tesla API](https://smartcar.com/docs/api-reference/signals/charge#energy-added)**: Returns energy in kilowatt_hours
-- **Smart home devices** Report power in W/kW and energy in kWh
-- **Solar inverters**  Report generation in W/kW and kWh
+- **Smart home devices**: Report power in W/kW and energy in kWh
+- **Solar inverters**: Report generation in W/kW and kWh
 
 ## Technical Considerations
 
 - **No breaking changes**: Purely additive
-- **Minimal payload impact**: Data already exists in CLDR implementations
+- **Minimal payload impact**: Data already exists in CLDR and is typically shipped with browser i18n data
 - **Consistent with existing patterns**: Follows same conventions as `kilogram`/`kilometer`, `fluid-ounce`
+- **Spec updates**: §6.6.2 IsSanctionedSingleUnitIdentifier (Table 2) and AvailableCanonicalUnits() return set
 
 ## Community Support
 
-Issue #739 hase received 15 👍 reactions, with support from EV, smart home, and data center industries. There is also a thred on [dascourse](https://es.discourse.group/t/addition-of-power-energy-units-to-intl-numberformat/1702)
+Issue #739 has received 15 👍 reactions. There is also a thread on [Discourse](https://es.discourse.group/t/addition-of-power-energy-units-to-intl-numberformat/1702).
 
 ## Future Considerations
 
@@ -124,23 +128,11 @@ Both are standard in different contexts:
 - `watt-hour`: Small devices ("500 Wh battery")
 - `kilowatt-hour`: Consumption ("42 kWh charge", utility bills)
 
-Additionally, having `watt-hour` as the base unit enables custom formatters to easily create other prefixes (e.g., "3 MWh") by building on the properly defined base unit
-
-### What about compound units?
-
-Compound units (using "-per-") are already supported. Once base units are sanctioned:
-
-```javascript
-new Intl.NumberFormat('en-US', {
-  style: 'unit',
-  unit: 'kilowatt-hour-per-mile'
-}).format(0.29);
-// → "0.29 kWh/mi"
-```
+Additionally, having `watt-hour` as a sanctioned single unit allows custom formatters to scale to other prefixes (e.g., MWh) while preserving locale-correct formatting.
 
 ### Won't this increase bundle sizes?
 
-No significant increase. The localization data already exists in CLDR and is included in browser i18n implementations.
+The localization data for these units already exists in CLDR and is typically shipped with browser i18n data. Adding four identifiers mainly enables access to existing data; any additional strings are minimal. 
 
 ## References
 

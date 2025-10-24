@@ -72,29 +72,6 @@ These three units cover the vast majority of consumer-facing energy applications
 
 **AvailableCanonicalUnits()** must include the three new identifiers in its return set.
 
-## Why Not Watt-Hour?
-
-While `watt-hour` would be useful for smaller energy quantities (battery capacity, device consumption) and to add custom formatters to scale to other prefixes (e.g., MWh), it is **not defined as an explicit unit in CLDR** ([unit.xml](https://github.com/unicode-org/cldr/blob/main/common/validity/unit.xml)).
-
-### Current State
-
-CLDR can construct `watt-hour` as a compound unit (`power-watt` + `duration-hour`), but this produces **suboptimal formatting** compared to the explicit `kilowatt-hour`:
-
-| Unit | CLDR Status | SHORT format (en) |
-|------|-------------|-------------------|
-| kilowatt-hour | ✅ Explicit definition | `12.345 kWh` |
-| watt-hour | ⚠️ Constructed from components | `12.345 W⋅hr` |
-
-The constructed format uses a separator (`⋅`) and `hr` instead of the more natural `Wh`. Other locales have similar issues (German: `W⋅Std.` instead of `Wh`).
-
-### CLDR Discussion
-
-[CLDR-11454](https://unicode-org.atlassian.net/browse/CLDR-11454) proposed adding `watt-hour` as an explicit unit but decided it "can be done with compound units" (referring to the construction mechanism). However, [CLDR-17881](https://unicode-org.atlassian.net/browse/CLDR-17881) recognizes that commonly-used compound units should have explicit definitions for better formatting.
-
-### Path Forward
-
-This proposal focuses on the three units with production-quality CLDR support. `watt-hour` and `megawatt-hour` could be added to ECMA-402 once CLDR defines them explicitly with proper formatting.
-
 ## Prior Art
 
 ### CLDR Support
@@ -139,7 +116,7 @@ Additional energy and power units exist in CLDR but are excluded from this propo
 - `milliwatt` - Low-power electronics
 
 **Not Currently in CLDR (would require upstream CLDR work first):**
-- `watt-hour` - Smaller energy quantities (battery capacity, device consumption)
+- `watt-hour` - Smaller energy quantities (battery capacity, device consumption). See [FAQ](#why-not-watt-hour) for details.
 - `megawatt-hour` - Utility-scale energy measurement
 
 **Lower Priority:**
@@ -155,9 +132,28 @@ Additional energy and power units exist in CLDR but are excluded from this propo
 
 These cover the overwhelming majority of consumer-facing energy applications in web development. Starting focused allows faster adoption, and all three units are already defined with production-quality formatting in CLDR.
 
-### What about smaller units like watt-hour?
+### Why not watt-hour?
 
-See the [Why Not Watt-Hour?](#why-not-watt-hour) section above. While useful, `watt-hour` is not currently defined as an explicit unit in CLDR and produces suboptimal formatting when constructed as a compound unit.
+While `watt-hour` would be useful for smaller energy quantities (battery capacity, device consumption) and to add custom formatters to scale to other prefixes (e.g., MWh), it is **not defined as an explicit unit in CLDR** ([unit.xml](https://github.com/unicode-org/cldr/blob/main/common/validity/unit.xml)).
+
+**Current State:**
+
+CLDR can construct `watt-hour` as a compound unit (`power-watt` + `duration-hour`), but this produces **suboptimal formatting** compared to the explicit `kilowatt-hour`:
+
+| Unit | CLDR Status | SHORT format (en) |
+|------|-------------|-------------------|
+| kilowatt-hour | ✅ Explicit definition | `12.345 kWh` |
+| watt-hour | ⚠️ Constructed from components | `12.345 W⋅hr` |
+
+The constructed format uses a separator (`⋅`) and `hr` instead of the more natural `Wh`. Other locales have similar issues (German: `W⋅Std.` instead of `Wh`).
+
+**CLDR Discussion:**
+
+[CLDR-11454](https://unicode-org.atlassian.net/browse/CLDR-11454) proposed adding `watt-hour` as an explicit unit but decided it "can be done with compound units" (referring to the construction mechanism). However, [CLDR-17881](https://unicode-org.atlassian.net/browse/CLDR-17881) recognizes that commonly-used compound units should have explicit definitions for better formatting.
+
+**Path Forward:**
+
+This proposal focuses on the three units with production-quality CLDR support. `watt-hour` and `megawatt-hour` could be added to ECMA-402 once CLDR defines them explicitly with proper formatting.
 
 ### Won't this increase bundle sizes?
 These units are defined in CLDR with localization across all supported locales. Browsers may need to ship additional translation strings for the three units. However, the per-unit data is small (unit names, abbreviations, and grammatical forms), and three units represent a minimal addition.

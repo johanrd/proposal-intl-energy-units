@@ -94,6 +94,9 @@ See: https://github.com/unicode-org/cldr/blob/main/common/validity/unit.xml
 - **Spec updates**: §6.6.2 IsSanctionedSingleUnitIdentifier (Table 2) and AvailableCanonicalUnits() return set
 
 ## Appeal
+
+Energy units have significantly broader utility than existing sanctioned units like `stone` (UK/Ireland body weight), `acre` (land area), or `fluid-ounce` (regional volume measurement), with universal SI standardization and rapidly growing web-facing applications:
+
 - **Electric Vehicles**: Projected to reach 40M annual sales by 2030<sup>[[2]](https://www.iea.org/reports/global-ev-outlook-2024/executive-summary)</sup> (charging networks: ChargePoint 1M+ sessions/month<sup>[[3]](https://www.greencarreports.com/news/1115324_evgo-chargepoint-annual-reports-show-growth-in-electric-car-charging)</sup>, EVgo 1.4M+ drivers<sup>[[4]](https://apps.apple.com/us/app/evgo-fast-ev-charging/id1281660968)</sup>)
 - **Building Energy Management**: Mandated by EU EPBD directive<sup>[[1]](https://energy.ec.europa.eu/topics/energy-efficiency/energy-performance-buildings/energy-performance-buildings-directive_en)</sup>
 - **Smart Home Market**: $101B in 2024<sup>[[5]](https://www.skyquestt.com/report/smart-home-market)</sup>, projected to reach $226B by 2032 (Home Assistant: 2M+ installations<sup>[[6]](https://www.home-assistant.io/blog/2025/04/16/state-of-the-open-home-recap/)</sup>)

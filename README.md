@@ -122,18 +122,18 @@ Energy units have significantly broader utility than existing sanctioned units l
 
 Additional energy and power units exist in CLDR but are excluded from this proposal to maintain focus. They could be considered in future proposals if demand emerges:
 
-**Medium Priority (defined in CLDR):**
+#### Medium Priority (defined in CLDR):
 - `megawatt` - Industrial and power generation facilities
 - `gigawatt` - Large-scale power infrastructure
 - `milliwatt` - Low-power electronics
 
-**Not Currently in CLDR (would require upstream CLDR work first):**
+#### Not Currently in CLDR (would require upstream CLDR work first):
 - `watt-hour` - Smaller energy quantities (battery capacity, device consumption). See [FAQ](#why-not-watt-hour) for details.
 - `megawatt-hour` - Utility-scale energy measurement
 - `gigawatt-hour` - Utility-scale energy measurement
 - `milliampere-hour` – `mAh` used for electronics and batteries
 
-**Lower Priority:**
+#### Lower Priority:
 - `joule`, `kilojoule` - Scientific applications (separate domain)
 - `british-thermal-unit` - HVAC
 - `therm-us` - US natural gas billing

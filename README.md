@@ -130,6 +130,8 @@ Additional energy and power units exist in CLDR but are excluded from this propo
 **Not Currently in CLDR (would require upstream CLDR work first):**
 - `watt-hour` - Smaller energy quantities (battery capacity, device consumption). See [FAQ](#why-not-watt-hour) for details.
 - `megawatt-hour` - Utility-scale energy measurement
+- `gigawatt-hour` - Utility-scale energy measurement
+- `milliampere-hour` – `mAh` used for electronics and batteries
 
 **Lower Priority:**
 - `joule`, `kilojoule` - Scientific applications (separate domain)

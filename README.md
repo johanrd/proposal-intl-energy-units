@@ -57,7 +57,7 @@ Currently, developers must manually format these units.
 ### 3. Compound units
 - **Energy labelling** — `kilowatt-hour-per-year` (EU energy labels)
 - **Carbon accounting** — `gram-per-kilowatt-hour` (CO₂e `g/kWh`)
-- **EV efficiency** — `kilowatt-hour-per-kilometer`, `kilowatt-hour-per-mile`
+- **EV efficiency** — `kilowatt-hour-per-kilometer`, `kilowatt-hour-per-mile` (CLDR also defines `kilowatt-hour-per-100-kilometer` as a [unit identifier](https://github.com/unicode-org/cldr/blob/main/common/validity/unit.xml))
 - **Energy density** — `kilowatt-hour-per-liter` (battery specs)
 - **Energy intensity** — `kilowatt-hour-per-kilogram` (industrial production)
 
@@ -157,6 +157,7 @@ TC39-TG2 has recommended adding energy unit preference data to [CLDR](https://un
 |----------------|----------|-------|
 | `kilowatt-hour` | Yes | Used in `energy/default` preferences |
 | `kilowatt` | Yes | Used in `power/engine` preferences |
+| `kilowatt-hour-per-100-kilometer` | Yes | Defined as `force-kilowatt-hour-per-100-kilometer` |
 | `watt-hour` | No | Would enable full prefix scaling if added. See [CLDR-11454](https://unicode-org.atlassian.net/browse/CLDR-11454) |
 | `milliampere-hour` | No | Not currently defined |
 
